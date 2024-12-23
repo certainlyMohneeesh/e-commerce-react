@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, ShoppingCart, User, LogOut } from 'lucide-react';
@@ -34,7 +35,7 @@ const Navbar = () => {
               <Menu className="h-6 w-6" />
             </button>
             <Link to="/" className="text-2xl font-bold text-pink-600">
-              CythDeal
+              MytailorZone
             </Link>
           </motion.div>
 

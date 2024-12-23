@@ -5,17 +5,34 @@ import { Facebook, Twitter, Instagram, Mail } from 'lucide-react';
 
 const Footer = () => {
   const footerLinks = {
-    Company: ['About Us', 'Careers', 'Press'],
-    Support: ['Help Center', 'Safety Center', 'Community Guidelines'],
-    Legal: ['Cookies Policy', 'Privacy Policy', 'Terms of Service'],
-    'Quick Links': ['Products', 'Categories', 'Special Offers', 'Blog']
+    Company: [
+      { id: 'about-us', label: 'About Us' },
+      { id: 'careers', label: 'Careers' },
+      { id: 'press', label: 'Press' }
+    ],
+    Support: [
+      { id: 'help-center', label: 'Help Center' },
+      { id: 'safety-center', label: 'Safety Center' },
+      { id: 'community', label: 'Community Guidelines' }
+    ],
+    Legal: [
+      { id: 'cookies', label: 'Cookies Policy' },
+      { id: 'privacy', label: 'Privacy Policy' },
+      { id: 'terms', label: 'Terms of Service' }
+    ],
+    'Quick Links': [
+      { id: 'products', label: 'Products' },
+      { id: 'categories', label: 'Categories' },
+      { id: 'offers', label: 'Special Offers' },
+      { id: 'blog', label: 'Blog' }
+    ]
   };
 
   const socialLinks = [
-    { icon: Facebook, href: '#' },
-    { icon: Twitter, href: '#' },
-    { icon: Instagram, href: '#' },
-    { icon: Mail, href: '#' }
+    { id: 'facebook', icon: Facebook, href: '#' },
+    { id: 'twitter', icon: Twitter, href: '#' },
+    { id: 'instagram', icon: Instagram, href: '#' },
+    { id: 'mail', icon: Mail, href: '#' }
   ];
 
   return (
@@ -23,16 +40,16 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
+            <div key={`footer-${title}`}>
               <h3 className="text-lg font-semibold mb-4 text-gray-900">{title}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link}>
+                  <li key={link.id}>
                     <Link
-                      to={`/${link.toLowerCase().replace(/\s+/g, '-')}`}
+                      to={`/${link.id}`}
                       className="text-gray-600 hover:text-pink-600 transition-colors"
                     >
-                      {link}
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -43,18 +60,18 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-gray-200">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               className="text-2xl font-bold text-pink-600"
             >
-              CythDeal
+              MytailorZone
             </motion.div>
 
             <div className="flex space-x-6">
-              {socialLinks.map(({ icon: Icon, href }) => (
+              {socialLinks.map(({ id, icon: Icon, href }) => (
                 <motion.a
-                  key={href}
+                  key={id}
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"

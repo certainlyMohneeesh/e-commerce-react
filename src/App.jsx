@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
@@ -21,14 +22,20 @@ import Checkout from './pages/Checkout';
 import UserDashboard from './pages/UserDashboard';
 import SellerDashboard from './pages/SellerDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import PromoStrip from './components/common/PromoStrip';
 
 const App = () => {
+  useEffect(() => {
+    console.log('App component mounted');
+  }, []);
+
   return (
     <Router>
       <AuthProvider>
         <CartProvider>
           <div className="min-h-screen flex flex-col bg-gray-50">
             <Navbar />
+            <PromoStrip />
             <main className="flex-grow container mx-auto px-4 py-8">
               <Routes>
                 {/* Public Routes */}

@@ -5,27 +5,26 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 
 const Home = () => {
-  const carouselItems = [
-    {
-        image: "/slide1.jpg",
-        title: "Summer Collection",
-        description: "Discover our latest summer arrivals",
-        bgColor: "from-orange-400 to-pink-500"
-      },
-      {
-        image: "/slide2.jpg",
-        title: "Winter Essentials",
-        description: "Stay warm with our winter collection",
-        bgColor: "from-blue-400 to-indigo-500"
-      },
-      {
-        image: "/slide3.jpg",
-        title: "Special Offers",
-        description: "Up to 50% off on selected items",
-        bgColor: "from-green-400 to-emerald-500"
-      }
-  ];
-
+    const carouselItems = [
+        {
+          image: "https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&auto=format&fit=crop",
+          title: "Summer Collection",
+          description: "Discover our latest summer arrivals",
+          bgColor: "from-orange-400 to-pink-500"
+        },
+        {
+          image: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=800&auto=format&fit=crop",
+          title: "Winter Essentials",
+          description: "Stay warm with our winter collection",
+          bgColor: "from-blue-400 to-indigo-500"
+        },
+        {
+          image: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=800&auto=format&fit=crop",
+          title: "Special Offers",
+          description: "Up to 50% off on selected items",
+          bgColor: "from-green-400 to-emerald-500"
+        }
+      ];
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,6 +32,10 @@ const Home = () => {
       transition={{ duration: 0.5 }}
       className="text-center py-12"
     >
+
+            <div>
+                <h1>Welcome to MytailorZone</h1>
+            </div>
       <div className="relative group w-full max-w-5xl mx-auto">
             <Carousel className="w-full">
                 <CarouselContent>
@@ -84,9 +87,38 @@ const Home = () => {
             </Carousel>
             </div>
 
+            <div className="mt-16 w-full ">
+            <h1 className="text-3xl font-bold mb-8">Featured Products</h1>
+            </div>
+        
+            
             {/* Update the Featured Categories section */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-            {['Electronics', 'Fashion', 'Home & Living'].map((category) => (
+            {['Formal', 'Fashion', 'Sports Wear'].map((category) => (
+                <motion.div
+                key={category}
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100"
+                >
+                <h3 className="text-2xl font-semibold mb-4 bg-gradient-to-r from-pink-600 to-purple-600 text-transparent bg-clip-text">
+                    {category}
+                </h3>
+                <Button 
+                    variant="outline" 
+                    className="w-full border-2 border-pink-600 text-pink-600 hover:bg-pink-600 hover:text-white transition-all duration-300"
+                >
+                    Explore
+                </Button>
+                </motion.div>
+            ))}
+            </div>
+            {/* another product card grid  */}
+            <div className="mt-16 w-full ">
+            <h1 className="text-3xl font-bold mb-8">Newly Added</h1>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            {['Formal', 'Fashion', 'Sports Wear'].map((category) => (
                 <motion.div
                 key={category}
                 whileHover={{ scale: 1.05, y: -5 }}
