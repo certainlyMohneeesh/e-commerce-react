@@ -3,6 +3,11 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  
+  build: {
+    outDir: 'build',
+    sourcemap: true
+  },
 
   typescript: {
     ignoreBuildErrors: true
@@ -10,7 +15,7 @@ export default defineConfig({
   eslint : {
     ignoreDuringBuilds: true
   },
-  
+
   define: {
     'process.env': {}
   },
