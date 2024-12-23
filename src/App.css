@@ -1,0 +1,38 @@
+/* Main layout styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styles */
+.header {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navigation styles */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Hero section styles */
+.hero-section {
+  padding: 4rem 0;
+  background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+  color: white;
+}
+
+/* Carousel styles */
+.carousel-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 1rem;
+  }
+}
