@@ -21,6 +21,11 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+// Add logging middleware for debugging
+router.use((req, res, next) => {
+  console.log(`Cart Route accessed: ${req.method} ${req.url}`);
+  next();
+});
 
 // Add to Cart Route
 router.post('/addtocart', async (req, res) => {
@@ -46,15 +51,31 @@ router.post('/addtocart', async (req, res) => {
 
 // Get Cart by User ID Route
 router.post('/get-cart', async (req, res) => {
+  console.log('Get cart request received:', req.body);
   try {
-    const { userId } = req.body;
-    const cart = await Cart.findOne({ userId });
+      const { userId } = req.body;
+      
+      if (!userId) {
+          return res.status(400).json({ success: false, message: 'UserId is required' });
+      }
 
-    if (!cart) return res.status(404).json({ success: false, message: 'Cart not found for this user' });
+      const cart = await Cart.findOne({ userId });
 
-    res.status(200).json({ success: true, cart });
+      // If no cart exists, return an empty cart instead of 404
+      if (!cart) {
+          return res.status(200).json({ 
+              success: true, 
+              cart: { 
+                  userId,
+                  productsInCart: [] 
+              } 
+          });
+      }
+
+      res.status(200).json({ success: true, cart });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Error fetching cart', error: error.message });
+      console.error('Error in get-cart:', error);
+      res.status(500).json({ success: false, message: 'Error fetching cart', error: error.message });
   }
 });
 

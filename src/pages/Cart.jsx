@@ -8,15 +8,18 @@ import { Link } from 'react-router-dom';
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart } = useCart();
 
+  //Provide a fallback value in case cart is undefined
+  const safeCart = cart ?? { items: [] };
+
   const calculateTotal = () => {
-    return cart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return safeCart.items.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
 
-      {cart.items.length === 0 ? (
+      {safeCart.items.length === 0 ? (
         <div className="text-center py-12">
           <h2 className="text-xl text-gray-600 mb-4">Your cart is empty</h2>
           <Link to="/products">
@@ -28,7 +31,7 @@ const Cart = () => {
       ) : (
         <div className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-4">
-            {cart.items.map((item) => (
+            {safeCart.items.map((item) => (
               <motion.div
                 key={item.id}
                 layout

@@ -8,20 +8,39 @@ export const CartProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [itemCount, setItemCount] = useState(0);
 
+  // Replace this with your actual auth logic
+  const userId = localStorage.getItem('userId'); // or get from your auth context
+
   useEffect(() => {
-    fetchCart();
-  }, []);
+      if (userId) {
+          fetchCart();
+      } else {
+          setLoading(false);
+      }
+  }, [userId]);
 
   const fetchCart = async () => {
-    try {
-      const cartData = await cartAPI.getCart();
-      setCart(cartData);
-      updateItemCount(cartData);
-    } catch (error) {
-      console.error('Cart fetch failed:', error);
-    } finally {
-      setLoading(false);
-    }
+      try {
+          console.log('Fetching cart for user:', userId);
+          const response = await cartAPI.getCart(userId);
+          console.log('Cart response:', response);
+          
+          if (response.success) {
+              setCart(response.cart);
+              updateItemCount(response.cart);
+          } else {
+              // Handle empty cart case
+              setCart({ userId, productsInCart: [] });
+              setItemCount(0);
+          }
+      } catch (error) {
+          console.error('Cart fetch failed:', error);
+          // Handle error case by setting empty cart
+          setCart({ userId, productsInCart: [] });
+          setItemCount(0);
+      } finally {
+          setLoading(false);
+      }
   };
 
   const updateItemCount = (cartData) => {
@@ -31,10 +50,11 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (productId, quantity) => {
     try {
-      const updatedCart = await cartAPI.addToCart(productId, quantity);
-      setCart(updatedCart);
-      updateItemCount(updatedCart);
-      return updatedCart;
+      const userId = localStorage.getItem('userId');
+      const response = await cartAPI.addToCart(userId, productId, quantity);
+      setCart(response.cart);
+      updateItemCount(response.cart);
+      return response.cart;
     } catch (error) {
       throw error;
     }

@@ -25,8 +25,8 @@ async function sendEmailToAllUsers(subject, message) {
         for (const user of users) {
             try {
                 await transporter.sendMail({
-                    from: 'pecommerce8@gmail.com',
-                    to: user.email,
+                    from: process.env.EMAIL_USER,
+                    to: ["certainlymohneesh@gmail.com"],
                     subject: subject,
                     text: message
                 });
